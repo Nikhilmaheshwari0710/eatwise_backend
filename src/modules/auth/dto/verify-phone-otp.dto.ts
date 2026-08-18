@@ -1,0 +1,14 @@
+import { IsString, Matches, Length } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+
+export class VerifyPhoneOtpDto {
+  @ApiProperty({ example: '+919876543210' })
+  @IsString()
+  @Matches(/^\+[1-9]\d{6,14}$/, { message: 'Phone number must be in E.164 format' })
+  phoneNumber: string;
+
+  @ApiProperty({ example: '123456' })
+  @IsString()
+  @Length(6, 6)
+  otp: string;
+}
