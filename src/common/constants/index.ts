@@ -141,3 +141,44 @@ export enum ScanHistoryFilter {
   MODERATE = 'moderate',
   RISK = 'risk',
 }
+
+export enum CommunityTab {
+  FOR_YOU = 'for_you',
+  NUTRITION = 'nutrition',
+  RECIPES = 'recipes',
+  TIPS = 'tips',
+}
+
+export enum PostCategory {
+  NUTRITION = 'Nutrition',
+  RECIPE = 'Recipe',
+  TIPS = 'Tips',
+  PARENTING = 'Parenting',
+  GENERAL = 'General',
+}
+
+export enum AffiliatePlatformId {
+  AMAZON = 'Amazon',
+  FLIPKART = 'Flipkart',
+  BIGBASKET = 'BigBasket',
+  ONE_MG = '1mg',
+}
+
+export enum AffiliateTransactionStatus {
+  PENDING = 'pending',
+  PAID = 'paid',
+  REJECTED = 'rejected',
+}
+
+export enum AffiliateClickSource {
+  WHATSAPP = 'whatsapp',
+  FACEBOOK = 'facebook',
+  INSTAGRAM = 'instagram',
+  OTHER = 'other',
+}
+
+export enum AffiliateDeviceType {
+  ANDROID = 'android',
+  IOS = 'ios',
+  WEB = 'web',
+}

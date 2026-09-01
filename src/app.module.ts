@@ -14,6 +14,9 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
 import { ProductsModule } from './modules/products/products.module';
 import { ScansModule } from './modules/scans/scans.module';
 import { MastersModule } from './modules/masters/masters.module';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { CommunityModule } from './modules/community/community.module';
+import { AffiliateModule } from './modules/affiliate/affiliate.module';
 
 @Module({
   imports: [
@@ -36,6 +39,9 @@ import { MastersModule } from './modules/masters/masters.module';
     ProductsModule,
     ScansModule,
     MastersModule,
+    DashboardModule,
+    CommunityModule,
+    AffiliateModule,
   ],
   providers: [
     {

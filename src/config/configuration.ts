@@ -39,4 +39,15 @@ export default () => ({
     cdnBaseUrl: process.env.AVATAR_CDN_BASE_URL || 'http://localhost:3000/uploads',
     uploadDir: process.env.AVATAR_UPLOAD_DIR || 'uploads/avatars',
   },
+  community: {
+    cdnBaseUrl:
+      process.env.COMMUNITY_CDN_BASE_URL ||
+      process.env.AVATAR_CDN_BASE_URL ||
+      'http://localhost:3000/uploads',
+    postUploadDir: process.env.COMMUNITY_POST_UPLOAD_DIR || 'uploads/posts',
+  },
+  affiliate: {
+    shortLinkBase: process.env.AFFILIATE_SHORT_LINK_BASE || 'https://eatwise.link',
+    cdnBaseUrl: process.env.AFFILIATE_CDN_BASE_URL || 'https://cdn.eatwise.app',
+  },
 });
