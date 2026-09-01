@@ -14,9 +14,14 @@ export class OtpService {
     private configService: ConfigService,
   ) {}
 
-  async generateAndStore(identifier: string, type: OtpType, userId?: string): Promise<string> {
+  async generateAndStore(
+    identifier: string,
+    type: OtpType,
+    userId?: string,
+    expirySeconds?: number,
+  ): Promise<string> {
     const otp = crypto.randomInt(100000, 999999).toString();
-    await this.storeCode(identifier, type, otp, userId);
+    await this.storeCode(identifier, type, otp, userId, expirySeconds);
     return otp;
   }
 

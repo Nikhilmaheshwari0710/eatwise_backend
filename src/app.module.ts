@@ -7,6 +7,13 @@ import { validationSchema } from './config/validation';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { EmailModule } from './modules/email/email.module';
+import { ProfileModule } from './modules/profile/profile.module';
+import { ChildrenModule } from './modules/children/children.module';
+import { AccountModule } from './modules/account/account.module';
+import { NotificationsModule } from './modules/notifications/notifications.module';
+import { ProductsModule } from './modules/products/products.module';
+import { ScansModule } from './modules/scans/scans.module';
+import { MastersModule } from './modules/masters/masters.module';
 
 @Module({
   imports: [
@@ -22,6 +29,13 @@ import { EmailModule } from './modules/email/email.module';
     DatabaseModule,
     EmailModule,
     AuthModule,
+    ProfileModule,
+    ChildrenModule,
+    AccountModule,
+    NotificationsModule,
+    ProductsModule,
+    ScansModule,
+    MastersModule,
   ],
   providers: [
     {

@@ -34,4 +34,6 @@ export const validationSchema = Joi.object({
   MAILTRAP_PASSWORD: Joi.string().allow('').optional(),
   THROTTLE_TTL: Joi.number().default(60000),
   THROTTLE_LIMIT: Joi.number().default(10),
+  AVATAR_CDN_BASE_URL: Joi.string().uri().optional(),
+  AVATAR_UPLOAD_DIR: Joi.string().optional(),
 });

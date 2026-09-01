@@ -35,4 +35,8 @@ export default () => ({
     ttl: parseInt(process.env.THROTTLE_TTL || '60000', 10),
     limit: parseInt(process.env.THROTTLE_LIMIT || '10', 10),
   },
+  avatar: {
+    cdnBaseUrl: process.env.AVATAR_CDN_BASE_URL || 'http://localhost:3000/uploads',
+    uploadDir: process.env.AVATAR_UPLOAD_DIR || 'uploads/avatars',
+  },
 });
