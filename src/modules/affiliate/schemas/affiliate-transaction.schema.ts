@@ -42,6 +42,9 @@ export class AffiliateTransaction {
 
   @Prop()
   paidAt?: Date;
+
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export const AffiliateTransactionSchema = SchemaFactory.createForClass(AffiliateTransaction);

@@ -25,6 +25,9 @@ export class PostComment {
 
   @Prop({ default: 0, min: 0 })
   likesCount: number;
+
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export const PostCommentSchema = SchemaFactory.createForClass(PostComment);

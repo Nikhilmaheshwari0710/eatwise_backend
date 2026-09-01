@@ -38,6 +38,9 @@ export class CommunityPost {
 
   @Prop({ default: 0, min: 0 })
   commentsCount: number;
+
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export const CommunityPostSchema = SchemaFactory.createForClass(CommunityPost);

@@ -26,6 +26,9 @@ export class AffiliateGeneratedLink {
 
   @Prop()
   productUrl?: string;
+
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export const AffiliateGeneratedLinkSchema = SchemaFactory.createForClass(AffiliateGeneratedLink);
