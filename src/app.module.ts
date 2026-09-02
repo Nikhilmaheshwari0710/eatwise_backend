@@ -27,7 +27,7 @@ import { AffiliateModule } from './modules/affiliate/affiliate.module';
     }),
     ThrottlerModule.forRoot([{
       ttl: parseInt(process.env.THROTTLE_TTL || '60000', 10),
-      limit: parseInt(process.env.THROTTLE_LIMIT || '10', 10),
+      limit: parseInt(process.env.THROTTLE_LIMIT || '100', 10),
     }]),
     DatabaseModule,
     EmailModule,

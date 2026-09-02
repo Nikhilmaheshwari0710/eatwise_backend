@@ -67,13 +67,11 @@ export class ProfileService {
 
     await user.save();
 
+    const cdnBaseUrl = this.getCdnBaseUrl();
+
     return {
       message: 'Profile updated successfully.',
-      data: {
-        userId: user._id.toString(),
-        name: user.fullName,
-        updatedAt: user.updatedAt,
-      },
+      data: toProfileResponse(user, cdnBaseUrl),
     };
   }
 

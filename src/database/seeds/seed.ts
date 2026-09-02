@@ -4,6 +4,19 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
+
+const NotificationSchema = new mongoose.Schema(
+  {
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, index: true },
+    type: { type: String, required: true },
+    title: { type: String, required: true },
+    message: { type: String, required: true },
+    isRead: { type: Boolean, default: false },
+    metadata: { type: Object, default: {} },
+  },
+  { timestamps: true },
+);
+
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/eatwise';
 
 const UserSchema = new mongoose.Schema(
@@ -33,6 +46,14 @@ const UserSchema = new mongoose.Schema(
 );
 
 const demoUsers = [
+  {
+    fullName: 'Darshan Patel',
+    email: 'dp150875@gmail.com',
+    password: 'Dp@123',
+    role: 'PARENT',
+    authProvider: 'LOCAL',
+    isEmailVerified: true,
+  },
   {
     fullName: 'Parshwa Demo Parent',
     email: 'demo.parent@eatwise.app',
@@ -107,7 +128,51 @@ async function seed() {
     created++;
   }
 
-  console.log(`\nSeed complete. Created: ${created}, Skipped: ${skipped}`);
+  
+  const NotificationModel = mongoose.model('Notification', NotificationSchema);
+  const userDoc = await UserModel.findOne({ email: 'dp150875@gmail.com' });
+  if (userDoc) {
+    const existingNotifs = await NotificationModel.countDocuments({ userId: userDoc._id });
+    if (existingNotifs === 0) {
+      await NotificationModel.create([
+        {
+          userId: userDoc._id,
+          type: 'growth_milestone',
+          title: 'Growth Milestone Alert 📈',
+          message: "Time to log luccccy's latest weight & height for this month's growth analysis.",
+          isRead: false,
+          metadata: { category: 'growth' },
+        },
+        {
+          userId: userDoc._id,
+          title: 'High Sugar Alert ⚠️',
+          type: 'health_alert',
+          message: 'Product "Sweet Cereal" scanned contains 24g added sugar per 100g.',
+          isRead: false,
+          metadata: { category: 'scans' },
+        },
+        {
+          userId: userDoc._id,
+          type: 'ai_tip',
+          title: 'Healthy Recipe Suggestion 🥗',
+          message: 'Try Spinach & Cheese Oats Pancakes for toddlers - high protein and calcium.',
+          isRead: true,
+          metadata: { category: 'recipes' },
+        },
+        {
+          userId: userDoc._id,
+          type: 'weekly_report',
+          title: 'Weekly Health Summary Ready 📊',
+          message: 'Your family nutrition summary for this week has been generated.',
+          isRead: false,
+          metadata: { category: 'updates' },
+        },
+      ]);
+      console.log('✅ Seeded 4 notifications for dp150875@gmail.com');
+    }
+  }
+
+console.log(`\nSeed complete. Created: ${created}, Skipped: ${skipped}`);
 
   console.log('\n--- Demo Login Credentials ---');
   console.log('Email    : demo.parent@eatwise.app');
