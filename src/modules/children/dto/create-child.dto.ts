@@ -34,6 +34,11 @@ export class CreateChildDto {
   @IsEnum(Gender)
   gender: Gender;
 
+  @ApiPropertyOptional({ example: 'Mother' })
+  @IsOptional()
+  @IsString()
+  relationship?: string;
+
   @ApiPropertyOptional({ enum: BloodGroup })
   @IsOptional()
   @IsEnum(BloodGroup)

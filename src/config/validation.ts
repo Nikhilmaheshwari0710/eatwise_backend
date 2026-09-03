@@ -36,4 +36,6 @@ export const validationSchema = Joi.object({
   THROTTLE_LIMIT: Joi.number().default(10),
   AVATAR_CDN_BASE_URL: Joi.string().uri().optional(),
   AVATAR_UPLOAD_DIR: Joi.string().optional(),
+  GEMINI_API_KEY: Joi.string().allow('').optional(),
 });
+

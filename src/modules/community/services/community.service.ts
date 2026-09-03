@@ -133,11 +133,7 @@ export class CommunityService {
 
     return {
       message: 'Comment added.',
-      data: {
-        commentId: comment._id.toString(),
-        text: comment.text,
-        createdAt: comment.createdAt,
-      },
+      data: toCommentResponse(comment),
     };
   }
 
@@ -262,3 +258,4 @@ export class CommunityService {
     );
   }
 }
+

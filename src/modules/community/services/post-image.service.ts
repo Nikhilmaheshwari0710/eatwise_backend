@@ -4,7 +4,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { extname, join } from 'path';
 import { randomUUID } from 'crypto';
 
-const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png'];
+const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/heic', 'image/heif'];
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
 @Injectable()
@@ -40,7 +40,7 @@ export class PostImageService {
 
     const cdnBaseUrl =
       this.configService.get<string>('community.cdnBaseUrl') ||
-      'http://localhost:3000/uploads';
+      'http://192.168.1.9:3000/uploads';
     const base = cdnBaseUrl.replace(/\/$/, '');
     return `${base}/posts/${filename}`;
   }

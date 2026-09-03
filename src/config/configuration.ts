@@ -50,4 +50,8 @@ export default () => ({
     shortLinkBase: process.env.AFFILIATE_SHORT_LINK_BASE || 'https://eatwise.link',
     cdnBaseUrl: process.env.AFFILIATE_CDN_BASE_URL || 'https://cdn.eatwise.app',
   },
+  gemini: {
+    apiKey: process.env.GEMINI_API_KEY || '',
+  },
 });
+

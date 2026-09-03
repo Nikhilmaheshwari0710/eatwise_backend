@@ -1,4 +1,4 @@
-import {
+﻿import {
   Injectable,
   NotFoundException,
   BadRequestException,
@@ -16,6 +16,8 @@ import {
   toProductDetail,
   toProductListItem,
 } from '../utils/product.util';
+import { GeminiAnalysisService, GeminiProductResult } from './gemini-analysis.service';
+import { getHealthMeta } from '../config/product-masters.config';
 
 @Injectable()
 export class ProductsService {
@@ -23,7 +25,64 @@ export class ProductsService {
     @InjectModel(Product.name) private productModel: Model<ProductDocument>,
     @InjectModel(ProductCategory.name)
     private categoryModel: Model<ProductCategoryDocument>,
+    private readonly geminiService: GeminiAnalysisService,
   ) {}
+
+  async analyzeImage(imageBase64: string) {
+    const aiResult: GeminiProductResult | null = await this.geminiService.analyzeProductImage(imageBase64);
+
+    if (!aiResult) {
+      return {
+        message: 'AI analysis unavailable',
+        data: null,
+        source: 'error',
+      };
+    }
+
+    const escapedName = aiResult.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const escapedBrand = aiResult.brand.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    const existingProduct = await this.productModel.findOne({
+      name: { $regex: new RegExp('^' + escapedName + '$', 'i') },
+      brand: { $regex: new RegExp('^' + escapedBrand + '$', 'i') },
+    });
+
+    if (existingProduct) {
+      const category = await this.categoryModel.findById(existingProduct.categoryId);
+      const alternatives = await this.resolveAlternatives(existingProduct);
+      return {
+        message: 'Product found in database',
+        data: toProductDetail(existingProduct, category?.name ?? '', alternatives),
+        source: 'database',
+      };
+    }
+
+    const { healthLabel, healthColor } = getHealthMeta(aiResult.healthScore);
+
+    return {
+      message: 'Product analyzed by Gemini AI',
+      data: {
+        productId: null,
+        barcode: null,
+        name: aiResult.name,
+        brand: aiResult.brand,
+        category: aiResult.category,
+        imageUrl: null,
+        netWeight: aiResult.netWeight,
+        healthScore: aiResult.healthScore,
+        healthLabel,
+        healthColor,
+        isVeg: aiResult.isVeg ?? true,
+        ingredients: aiResult.ingredients,
+        allergens: aiResult.allergens ?? [],
+        nutritionPer100g: aiResult.nutritionPer100g,
+        highlights: aiResult.highlights ?? [],
+        suitableFor: aiResult.suitableFor,
+        alternatives: [],
+      },
+      source: 'ai',
+    };
+  }
 
   async getByBarcode(barcode: string) {
     if (!isValidBarcode(barcode)) {
@@ -32,7 +91,7 @@ export class ProductsService {
 
     const product = await this.productModel.findOne({ barcode });
     if (!product) {
-      throw new NotFoundException(`Product not found for barcode: ${barcode}`);
+      throw new NotFoundException('Product not found for barcode: ' + barcode);
     }
 
     const category = await this.categoryModel.findById(product.categoryId);
@@ -67,7 +126,7 @@ export class ProductsService {
 
     if (query.category) {
       const category = await this.categoryModel.findOne({
-        name: { $regex: `^${query.category}$`, $options: 'i' },
+        name: { $regex: '^' + query.category + '$', $options: 'i' },
       });
       if (category) {
         mongoFilter.categoryId = category._id;

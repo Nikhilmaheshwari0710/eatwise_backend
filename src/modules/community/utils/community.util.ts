@@ -55,6 +55,7 @@ export function toPostResponse(
 
 export function toCommentResponse(comment: PostCommentDocument) {
   return {
+    id: comment._id.toString(),
     commentId: comment._id.toString(),
     authorName: comment.authorName,
     authorAvatarUrl: comment.authorAvatarUrl ?? null,

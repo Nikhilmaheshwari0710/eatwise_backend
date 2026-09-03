@@ -62,6 +62,7 @@ export class ChildrenService {
       name: dto.name,
       dateOfBirth: dto.dateOfBirth,
       gender: dto.gender,
+      relationship: dto.relationship,
       bloodGroup: dto.bloodGroup,
       avatarPresetId: dto.avatarPresetId,
       allergies: dto.allergies ?? [],
@@ -86,6 +87,7 @@ export class ChildrenService {
     child.name = dto.name;
     child.dateOfBirth = dto.dateOfBirth;
     child.gender = dto.gender;
+    child.relationship = dto.relationship;
     child.bloodGroup = dto.bloodGroup;
     child.allergies = dto.allergies ?? [];
     child.medicalConditions = dto.medicalConditions ?? [];

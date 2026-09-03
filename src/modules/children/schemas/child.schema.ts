@@ -54,6 +54,9 @@ export class Child {
   @Prop({ type: String, enum: Gender, required: true })
   gender: Gender;
 
+  @Prop({ trim: true })
+  relationship?: string;
+
   @Prop()
   avatarUrl?: string;
 

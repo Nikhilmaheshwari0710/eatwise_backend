@@ -106,6 +106,7 @@ export function toChildResponse(child: ChildDocument, cdnBaseUrl: string) {
     dateOfBirth: child.dateOfBirth,
     ageDisplay: calculateAgeDisplay(child.dateOfBirth),
     gender: child.gender,
+    relationship: child.relationship,
     avatarUrl: resolveChildAvatarUrl(child, cdnBaseUrl),
     avatarPresetId: child.avatarPresetId,
     bloodGroup: child.bloodGroup,
