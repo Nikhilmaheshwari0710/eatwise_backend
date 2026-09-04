@@ -7,8 +7,6 @@ import { AnalyzeProductImageDto } from '../dto/analyze-product-image.dto';
 
 @ApiTags('Products')
 @Controller('products')
-@UseGuards(JwtAuthGuard)
-@ApiBearerAuth()
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 

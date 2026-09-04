@@ -28,10 +28,6 @@ export class ScansService {
       throw new NotFoundException('Product not found');
     }
 
-    if (product.barcode !== dto.barcode) {
-      throw new BadRequestException('Barcode does not match product');
-    }
-
     let childName: string | undefined;
     if (dto.childId) {
       const child = await this.childModel.findOne({
@@ -48,10 +44,10 @@ export class ScansService {
     const scan = await this.scanModel.create({
       userId: new Types.ObjectId(userId),
       productId: product._id,
-      barcode: dto.barcode,
+      barcode: product.barcode || dto.barcode,
       childId: dto.childId ? new Types.ObjectId(dto.childId) : undefined,
       childName,
-      scannedAt: new Date(dto.scannedAt),
+      scannedAt: dto.scannedAt ? new Date(dto.scannedAt) : new Date(),
     });
 
     return {

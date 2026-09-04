@@ -95,6 +95,9 @@ export class Product {
   @Prop()
   imageUrl?: string;
 
+  @Prop({ index: true })
+  imageHash?: string;
+
   @Prop({ required: true })
   netWeight: string;
 
